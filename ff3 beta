@@ -57,18 +57,18 @@ end
 X()
 local j = {
 	["Minimal White"] = {
-		MainBG = Color3.fromRGB(15, 15, 15);
-		SidebarBG = Color3.fromRGB(20, 20, 20);
-		TopbarBG = Color3.fromRGB(10, 10, 10),
-		SectionBG = Color3.fromRGB(22, 22, 22);
-		SectionHeaderBG = Color3.fromRGB(26, 26, 26),
-		ElementBG = Color3.fromRGB(30, 30, 30);
-		ElementHoverBG = Color3.fromRGB(38, 38, 38);
-		Accent = Color3.fromRGB(255, 255, 255);
-		TextMain = Color3.fromRGB(255, 255, 255),
-		TextSub = Color3.fromRGB(170, 170, 170);
-		Border = Color3.fromRGB(45, 45, 45);
-		ControlBG = Color3.fromRGB(18, 18, 18)
+		MainBG = Color3.fromRGB(22, 18, 31);
+		SidebarBG = Color3.fromRGB(27, 22, 39);
+		TopbarBG = Color3.fromRGB(18, 15, 27),
+		SectionBG = Color3.fromRGB(31, 25, 45);
+		SectionHeaderBG = Color3.fromRGB(37, 29, 55),
+		ElementBG = Color3.fromRGB(41, 33, 60);
+		ElementHoverBG = Color3.fromRGB(52, 42, 76);
+		Accent = Color3.fromRGB(178, 112, 255);
+		TextMain = Color3.fromRGB(250, 247, 255),
+		TextSub = Color3.fromRGB(198, 184, 218);
+		Border = Color3.fromRGB(70, 57, 92);
+		ControlBG = Color3.fromRGB(25, 21, 36)
 	},
 	["Midnight Violet"] = {
 		MainBG = Color3.fromRGB(13, 11, 18),
@@ -518,7 +518,7 @@ function q.CreateWindow(F, D)
 		BackgroundColor3 = N.MainBG,
 		AnchorPoint = Vector2.new(.5, .5);
 		Position = UDim2.new(.5, 0, .5, 0);
-		Size = UDim2.new(0, 720, 0, 480),
+		Size = UDim2.new(0, 740, 0, 500),
 		BorderSizePixel = 0
 	})
 	y(W, function()
@@ -555,7 +555,7 @@ function q.CreateWindow(F, D)
 	end
 	S("UICorner", {
 		Parent = W;
-		CornerRadius = UDim.new(0, 8)
+		CornerRadius = UDim.new(0, 10)
 	})
 	local u = S("Frame", {
 		Name = "StrokeFrame";
@@ -565,11 +565,13 @@ function q.CreateWindow(F, D)
 	})
 	S("UICorner", {
 		Parent = u,
-		CornerRadius = UDim.new(0, 8)
+		CornerRadius = UDim.new(0, 10)
 	})
 	local R = S("UIStroke", {
 		Parent = u;
-		Color = N.Border
+		Color = N.Border,
+		Thickness = 1,
+		Transparency = 0.15
 	})
 	y(R, function()
 		R.Color = N.Border
@@ -700,21 +702,52 @@ function q.CreateWindow(F, D)
 			end
 		end)
 	end
-	local BetaBadge = S("TextLabel", {
-		Parent = W,
-		BackgroundTransparency = 1,
-		AnchorPoint = Vector2.new(0, 1),
-		Position = UDim2.new(0, 10, 1, -4),
-		Size = UDim2.new(0, 78, 0, 12),
-		Font = Enum.Font.GothamBold,
-		Text = "BETA TESTER",
-		TextColor3 = Color3.fromRGB(255, 80, 80),
-		TextSize = 10,
-		TextXAlignment = Enum.TextXAlignment.Right,
+	local BetaFrame = Instance.new("Frame")
+	BetaFrame.Parent = W
+	BetaFrame.BackgroundColor3 = Color3.fromRGB(13, 19, 24)
+	BetaFrame.BackgroundTransparency = 0
+	BetaFrame.AnchorPoint = Vector2.new(0, 1)
+	BetaFrame.Position = UDim2.new(0, 12, 1, -10)
+	BetaFrame.Size = UDim2.new(0, 78, 0, 20)
+	BetaFrame.ZIndex = 9
+	local BetaCorner = Instance.new("UICorner", BetaFrame)
+	BetaCorner.CornerRadius = UDim.new(1, 0)
+	local BetaStroke = Instance.new("UIStroke", BetaFrame)
+	BetaStroke.Color = Color3.fromRGB(178, 112, 255)
+	BetaStroke.Thickness = 1
+	BetaStroke.Transparency = 0.35
+	BetaStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	local BetaDot = S("Frame", {
+		Parent = BetaFrame,
+		BackgroundColor3 = Color3.fromRGB(178, 112, 255),
+		BorderSizePixel = 0,
+		AnchorPoint = Vector2.new(0, .5),
+		Position = UDim2.new(0, 8, .5, 0),
+		Size = UDim2.new(0, 6, 0, 6),
 		ZIndex = 10
 	})
-	y(BetaBadge, function()
-		BetaBadge.TextColor3 = Color3.fromRGB(255, 80, 80)
+	S("UICorner", {
+		Parent = BetaDot,
+		CornerRadius = UDim.new(1, 0)
+	})
+	local BetaBadge = S("TextLabel", {
+		Parent = BetaFrame,
+		BackgroundTransparency = 1,
+		Position = UDim2.new(0, 18, 0, 0),
+		Size = UDim2.new(1, - 24, 1, 0),
+		Font = Enum.Font.GothamMedium,
+		Text = "PRIVATE",
+		TextColor3 = Color3.fromRGB(214, 228, 238),
+		TextSize = 10,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Center,
+		ZIndex = 10
+	})
+	y(BetaFrame, function()
+		BetaFrame.BackgroundColor3 = Color3.fromRGB(13, 19, 24)
+		BetaBadge.TextColor3 = Color3.fromRGB(214, 228, 238)
+		BetaDot.BackgroundColor3 = Color3.fromRGB(178, 112, 255)
+		BetaStroke.Color = Color3.fromRGB(178, 112, 255)
 	end)
 
 	local DA = Enum.KeyCode.RightControl
@@ -837,7 +870,7 @@ function q.CreateWindow(F, D)
 		Name = "Topbar";
 		Parent = W,
 		BackgroundColor3 = N.TopbarBG;
-		Size = UDim2.new(1, 0, 0, 48);
+		Size = UDim2.new(1, 0, 0, 50);
 		BorderSizePixel = 0;
 		ZIndex = 2
 	})
@@ -880,18 +913,18 @@ function q.CreateWindow(F, D)
 			})):Play()
 		end
 	end)
-	local aA = "FF3 v1.3"
+	local aA = "FF3 v1.4"
 	local HA = t:GetTextSize(aA, 22, Enum.Font.GothamBold, Vector2.new(1000, 48))
 	local bA = S("TextLabel", {
 		Parent = FA,
 		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 20, 0, 0),
+		Position = UDim2.new(0, 22, 0, 0),
 		Size = UDim2.new(0, HA.X + 20, 1, 0),
 		Font = Enum.Font.GothamBold,
-		Text = "<b>FF3</b> <font color=\'rgb(160,160,165)\'>v1.3</font>",
+		Text = "<b>FF3</b> <font color=\'rgb(178,112,255)\'>v1.4</font>",
 		RichText = true,
 		TextColor3 = N.TextMain;
-		TextSize = 22,
+		TextSize = 21,
 		TextXAlignment = Enum.TextXAlignment.Left
 	})
 	y(bA, function()
@@ -904,15 +937,16 @@ function q.CreateWindow(F, D)
 		BackgroundColor3 = N.ControlBG;
 		AnchorPoint = Vector2.new(1, .5);
 		Position = UDim2.new(1, - 50, .5, 0),
-		Size = UDim2.new(0, VA.X + 42, 0, 30)
+		Size = UDim2.new(0, VA.X + 48, 0, 32)
 	})
 	S("UICorner", {
 		Parent = iA,
-		CornerRadius = UDim.new(0, 4)
+		CornerRadius = UDim.new(1, 0)
 	})
 	local dA = S("UIStroke", {
 		Parent = iA,
-		Color = N.Border
+		Color = N.Border,
+		Transparency = 0.2
 	})
 	y(iA, function()
 		iA.BackgroundColor3 = N.ControlBG
@@ -921,8 +955,8 @@ function q.CreateWindow(F, D)
 	local WA = S("ImageLabel", {
 		Parent = iA,
 		BackgroundTransparency = 1;
-		Position = UDim2.new(0, 4, .5, - 11);
-		Size = UDim2.new(0, 22, 0, 22)
+		Position = UDim2.new(0, 5, .5, - 12);
+		Size = UDim2.new(0, 24, 0, 24)
 	})
 	S("UICorner", {
 		Parent = WA;
@@ -937,8 +971,8 @@ function q.CreateWindow(F, D)
 	local hA = S("TextLabel", {
 		Parent = iA;
 		BackgroundTransparency = 1;
-		Position = UDim2.new(0, 32, 0, 0),
-		Size = UDim2.new(1, - 36, 1, 0);
+		Position = UDim2.new(0, 36, 0, 0),
+		Size = UDim2.new(1, - 44, 1, 0);
 		Font = Enum.Font.GothamMedium;
 		Text = tA;
 		TextColor3 = N.TextMain,
@@ -1150,7 +1184,7 @@ function q.CreateWindow(F, D)
 		JA(pA.Text)
 	end)
 	local xA = (bA.Position.X.Offset + HA.X) + 25
-	local KA = ((705 - ((VA.X + 42))) - 15) - 30
+	local KA = ((725 - ((VA.X + 48))) - 15) - 30
 	local SA = KA - xA
 	local nA = S("Frame", {
 		Parent = FA,
@@ -1177,8 +1211,8 @@ function q.CreateWindow(F, D)
 		Name = "BodyContainer",
 		Parent = W;
 		BackgroundTransparency = 1;
-		Position = UDim2.new(0, 0, 0, 48),
-		Size = UDim2.new(1, 0, 1, - 48),
+		Position = UDim2.new(0, 0, 0, 50),
+		Size = UDim2.new(1, 0, 1, - 50),
 		ClipsDescendants = true
 	})
 	local function wA(D)
@@ -1316,11 +1350,12 @@ function q.CreateWindow(F, D)
 			})
 			S("UICorner", {
 				Parent = v,
-				CornerRadius = UDim.new(0, 6)
+				CornerRadius = UDim.new(0, 8)
 			})
 			local a = S("UIStroke", {
 				Parent = v,
-				Color = N.Border
+				Color = N.Border,
+				Transparency = 0.18
 			})
 			S("UIListLayout", {
 				Parent = v;
@@ -1334,7 +1369,7 @@ function q.CreateWindow(F, D)
 				Name = "SectionHeader",
 				Parent = v;
 				BackgroundColor3 = N.SectionHeaderBG,
-				Size = UDim2.new(1, 0, 0, 30);
+				Size = UDim2.new(1, 0, 0, 32);
 				BorderSizePixel = 0;
 				LayoutOrder = 1
 			})
@@ -1390,10 +1425,10 @@ function q.CreateWindow(F, D)
 			})
 			S("UIPadding", {
 				Parent = i,
-				PaddingTop = UDim.new(0, 8);
-				PaddingBottom = UDim.new(0, 8),
-				PaddingLeft = UDim.new(0, 8),
-				PaddingRight = UDim.new(0, 8)
+				PaddingTop = UDim.new(0, 10);
+				PaddingBottom = UDim.new(0, 10),
+				PaddingLeft = UDim.new(0, 10),
+				PaddingRight = UDim.new(0, 10)
 			})
 			S("UIListLayout", {
 				Parent = i,
@@ -2702,10 +2737,21 @@ function q.CreateWindow(F, D)
 		end
 		f.CreateDivider = function(f)
 			local F = D:_getSectionContainer("divider", "Divider_" .. tostring(math.random(1, 10000)))
+			local d = F:GetChildren()
+			for D = # d, 1, - 1 do
+				local f = d[D]
+				if f:IsA("GuiObject") then
+					if f.Name == "InlineDivider" then
+						return
+					end
+					break
+				end
+			end
 			local O = S("Frame", {
+				Name = "InlineDivider",
 				Parent = F;
 				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, 10)
+				Size = UDim2.new(1, 0, 0, 3)
 			})
 			local s = S("Frame", {
 				Parent = O,
@@ -2713,10 +2759,12 @@ function q.CreateWindow(F, D)
 				BorderSizePixel = 0;
 				AnchorPoint = Vector2.new(.5, .5),
 				Position = UDim2.new(.5, 0, .5, 0),
-				Size = UDim2.new(1, - 16, 0, 1)
+				Size = UDim2.new(1, - 24, 0, 1),
+				BackgroundTransparency = 1
 			})
 			y(s, function()
 				s.BackgroundColor3 = N.Border
+				s.BackgroundTransparency = 1
 			end)
 		end
 		return setmetatable(f, {
@@ -3558,9 +3606,10 @@ decreaseAngleKeybind = M:CreateKeybind({
 })
 lockKeybind = M:CreateKeybind({
 	Name = "Lock To Target Keybind";
-	Default = Enum.KeyCode.Z,
+	Default = Enum.KeyCode.Q,
 	Tip = "Locks passes onto the current target."
 })
+lockKeybind.Set(nil, Enum.KeyCode.Q)
 
 betterAimbotV2 = M:CreateToggle({
 	Name = "Better Aimbot V2",
@@ -3660,14 +3709,18 @@ local TA = Instance.new("Beam")
 TA.Attachment0 = CA
 TA.Attachment1 = cA
 TA.Segments = 7500
-TA.Width0 = 1
-TA.Width1 = 1
+TA.Width0 = 1.35
+TA.Width1 = 1.35
 TA.FaceCamera = true
-TA.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+TA.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(175, 95, 230)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(135, 70, 210)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(175, 95, 230))
+})
 TA.Transparency = NumberSequence.new({
-	NumberSequenceKeypoint.new(0, 1),
-	NumberSequenceKeypoint.new(.01, 0);
-	NumberSequenceKeypoint.new(1, 0)
+	NumberSequenceKeypoint.new(0, 0.25),
+	NumberSequenceKeypoint.new(.02, 0.05);
+	NumberSequenceKeypoint.new(1, 0.05)
 })
 TA.Enabled = true
 TA.Parent = workspace.Terrain
@@ -3675,9 +3728,10 @@ local gA = Instance.new("Part", workspace.Terrain)
 gA.Anchored = true
 gA.CanCollide = false
 gA.CastShadow = false
-gA.Size = Vector3.new(3, 3, 3)
+gA.Size = Vector3.new(3.2, 3.2, 3.2)
 gA.Shape = Enum.PartType.Ball
-gA.Color = Color3.fromRGB(0, 0, 0)
+gA.Material = Enum.Material.Neon
+gA.Color = Color3.fromRGB(255, 255, 255)
 local wA = nil
 pcall(function()
 	wA = (gethui and gethui()) or game:GetService("CoreGui")
@@ -3691,33 +3745,28 @@ local kA = Instance.new("ScreenGui")
 kA.ResetOnSpawn = false
 kA.Parent = wA
 kA.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-local MA = Instance.new("CanvasGroup")
+local MA = Instance.new("Frame")
 MA.Size = UDim2.new(1, 0, 0, 100)
 MA.Position = UDim2.new(.5, 0, .05, 0)
 MA.AnchorPoint = Vector2.new(.5, 0)
 MA.BackgroundTransparency = 1
-MA.GroupTransparency = 1
-MA.Visible = true
+MA.Visible = false
 MA.Parent = kA
 local IA = false
 local ZA = function(D)
 	if D and not IA then
-		IA = true;
-		(P:Create(MA, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			GroupTransparency = 0
-		})):Play()
+		IA = true
+		MA.Visible = true
 	elseif not D and IA then
-		IA = false;
-		(P:Create(MA, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			GroupTransparency = 1
-		})):Play()
+		IA = false
+		MA.Visible = false
 	end
 end
 local PA = Instance.new("UIScale", MA)
 local uA = function()
 	local D = A.ViewportSize
-	local f = (D.X / 1100)
-	PA.Scale = math.clamp(f, .5, 1.2)
+	local f = D.X < 1100 and (D.X / 1100) or 1
+	PA.Scale = math.clamp(math.floor((f * 20) + .5) / 20, .65, 1)
 end;
 (A:GetPropertyChangedSignal("ViewportSize")):Connect(uA)
 uA()
@@ -3726,80 +3775,241 @@ RA.FillDirection = Enum.FillDirection.Horizontal
 RA.HorizontalAlignment = Enum.HorizontalAlignment.Center
 RA.VerticalAlignment = Enum.VerticalAlignment.Center
 RA.SortOrder = Enum.SortOrder.LayoutOrder
-RA.Padding = UDim.new(0, 10)
+RA.Padding = UDim.new(0, 6)
 RA.Parent = MA
 local zA = function(D, f)
 	pcall(function()
 		D.Font = f
 	end)
 end
+local QBHudPFPImage = nil
+local QBHudPFPStroke = nil
+local QBHudPFPUserId = nil
+local QBHudPFPToken = 0
+local QBHudUpdatePFP = nil
+local AA_DefaultStatWidth = 114
+local AA_PlayerStatWidth = 154
+local AA_LayoutOrders = {
+	Angle = 1,
+	["Throw Type"] = 2,
+	Player = 3,
+	Airtime = 4,
+	Power = 5,
+	Distance = 6
+}
+local AA_Panel = Instance.new("Frame")
+AA_Panel.Name = "QBStats_CyberGlassHotbar"
+AA_Panel.BackgroundColor3 = Color3.fromRGB(22, 18, 31)
+AA_Panel.BackgroundTransparency = 0.04
+AA_Panel.BorderSizePixel = 0
+AA_Panel.Size = UDim2.new(0, 756, 0, 86)
+AA_Panel.LayoutOrder = 0
+AA_Panel.ClipsDescendants = true
+AA_Panel.Parent = MA
+local AA_PanelCorner = Instance.new("UICorner", AA_Panel)
+AA_PanelCorner.CornerRadius = UDim.new(0, 10)
+local AA_PanelStroke = Instance.new("UIStroke", AA_Panel)
+AA_PanelStroke.Color = Color3.fromRGB(178, 112, 255)
+AA_PanelStroke.Thickness = 1
+AA_PanelStroke.Transparency = 0.16
+AA_PanelStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+local AA_PanelGradient = Instance.new("UIGradient")
+AA_PanelGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(31, 25, 45)),
+	ColorSequenceKeypoint.new(.48, Color3.fromRGB(22, 18, 31)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(13, 11, 18))
+})
+AA_PanelGradient.Rotation = 92
+AA_PanelGradient.Parent = AA_Panel
+local AA_GlassSheen = Instance.new("Frame")
+AA_GlassSheen.Name = "GlassSheen"
+AA_GlassSheen.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AA_GlassSheen.BackgroundTransparency = 0.985
+AA_GlassSheen.BorderSizePixel = 0
+AA_GlassSheen.Position = UDim2.new(0, 1, 0, 1)
+AA_GlassSheen.Size = UDim2.new(1, - 2, 0, 22)
+AA_GlassSheen.ZIndex = 2
+AA_GlassSheen.Parent = AA_Panel
+local AA_GlassSheenCorner = Instance.new("UICorner", AA_GlassSheen)
+AA_GlassSheenCorner.CornerRadius = UDim.new(0, 9)
+local AA_GlassSheenGradient = Instance.new("UIGradient")
+AA_GlassSheenGradient.Color = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(190, 135, 255))
+})
+AA_GlassSheenGradient.Transparency = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, .75),
+	NumberSequenceKeypoint.new(.55, .92),
+	NumberSequenceKeypoint.new(1, 1)
+})
+AA_GlassSheenGradient.Rotation = 18
+AA_GlassSheenGradient.Parent = AA_GlassSheen
+local AA_AccentLine = Instance.new("Frame")
+AA_AccentLine.Name = "AccentLine"
+AA_AccentLine.BackgroundColor3 = Color3.fromRGB(178, 112, 255)
+AA_AccentLine.BackgroundTransparency = 0.12
+AA_AccentLine.BorderSizePixel = 0
+AA_AccentLine.AnchorPoint = Vector2.new(.5, 0)
+AA_AccentLine.Position = UDim2.new(.5, 0, 0, 0)
+AA_AccentLine.Size = UDim2.new(1, - 34, 0, 1)
+AA_AccentLine.ZIndex = 3
+AA_AccentLine.Parent = AA_Panel
+local AA_AccentLineGradient = Instance.new("UIGradient")
+AA_AccentLineGradient.Transparency = NumberSequence.new({
+	NumberSequenceKeypoint.new(0, 1),
+	NumberSequenceKeypoint.new(.15, .35),
+	NumberSequenceKeypoint.new(.5, 0),
+	NumberSequenceKeypoint.new(.85, .35),
+	NumberSequenceKeypoint.new(1, 1)
+})
+AA_AccentLineGradient.Parent = AA_AccentLine
+local AA_Content = Instance.new("Frame")
+AA_Content.Name = "StatsContent"
+AA_Content.BackgroundTransparency = 1
+AA_Content.BorderSizePixel = 0
+AA_Content.Position = UDim2.new(0, 15, 0, 0)
+AA_Content.Size = UDim2.new(1, - 30, 1, 0)
+AA_Content.ZIndex = 4
+AA_Content.Parent = AA_Panel
+local AA_List = Instance.new("UIListLayout")
+AA_List.FillDirection = Enum.FillDirection.Horizontal
+AA_List.HorizontalAlignment = Enum.HorizontalAlignment.Center
+AA_List.VerticalAlignment = Enum.VerticalAlignment.Center
+AA_List.SortOrder = Enum.SortOrder.LayoutOrder
+AA_List.Padding = UDim.new(0, 2)
+AA_List.Parent = AA_Content
 local AA = function(D)
 	local f = Instance.new("Frame")
-	f.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	f.BackgroundTransparency = 0
+	f.Name = (D:gsub("%s+", "")) .. "Slot"
+	f.BackgroundColor3 = Color3.fromRGB(31, 25, 45)
+	f.BackgroundTransparency = 0.55
 	f.BorderSizePixel = 0
-	local F = Instance.new("UIGradient")
-	F.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 45, 50)),
-		ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 18))
-	})
-	F.Rotation = 90
-	F.Parent = f
-	if D == "Throw Type" then
-		f.Size = UDim2.new(0, 110, 0, 80)
-	else
-		f.Size = UDim2.new(0, 95, 0, 80)
+	f.Size = UDim2.new(0, D == "Player" and AA_PlayerStatWidth or AA_DefaultStatWidth, 1, 0)
+	f.LayoutOrder = AA_LayoutOrders[D] or m
+	f.ZIndex = 5
+	f.Parent = AA_Content
+	local FSlotCorner = Instance.new("UICorner", f)
+	FSlotCorner.CornerRadius = UDim.new(0, 6)
+	if m > 0 then
+		local F = Instance.new("Frame")
+		F.Name = "Divider"
+		F.BackgroundColor3 = Color3.fromRGB(178, 112, 255)
+		F.BackgroundTransparency = 0.5
+		F.BorderSizePixel = 0
+		F.AnchorPoint = Vector2.new(0, .5)
+		F.Position = UDim2.new(0, 0, .5, 0)
+	F.Size = UDim2.new(0, 1, 0, 56)
+		F.ZIndex = 6
+		F.Parent = f
+		local O = Instance.new("UIGradient")
+		O.Rotation = 90
+		O.Transparency = NumberSequence.new({
+			NumberSequenceKeypoint.new(0, 1),
+			NumberSequenceKeypoint.new(.18, .42),
+			NumberSequenceKeypoint.new(.5, .1),
+			NumberSequenceKeypoint.new(.82, .42),
+			NumberSequenceKeypoint.new(1, 1)
+		})
+		O.Parent = F
 	end
-	f.LayoutOrder = m
-	f.Parent = MA
-	local O = Instance.new("UICorner", f)
-	O.CornerRadius = UDim.new(0, 8)
-	local s = Instance.new("UIStroke", f)
-	s.Color = Color3.fromRGB(80, 80, 85)
-	s.Thickness = 1.0
-	local r = Instance.new("UIPadding", f)
-	r.PaddingTop = UDim.new(0, 5)
-	r.PaddingBottom = UDim.new(0, 5)
 	local e = Instance.new("TextLabel")
-	e.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	e.BackgroundTransparency = 1.0
+	e.Name = "StatLabel"
+	e.BackgroundTransparency = 1
 	e.BorderSizePixel = 0
-	e.Position = UDim2.new(0, 0, .7, 0)
-	e.Size = UDim2.new(1, 0, 0, 15)
+	e.AnchorPoint = Vector2.new(.5, 1)
+	e.Position = UDim2.new(.5, 0, 1, - 11)
+	e.Size = UDim2.new(1, - 16, 0, 14)
+	e.ZIndex = 7
 	zA(e, Enum.Font.GothamBold)
-	e.Text = D
-	e.TextColor3 = Color3.fromRGB(255, 255, 255)
-	e.TextScaled = true
+	e.Text = string.upper(D)
+	e.TextColor3 = Color3.fromRGB(198, 184, 218)
+	e.TextStrokeTransparency = 1
+	e.TextScaled = false
+	e.TextSize = 10
+	e.TextWrapped = false
+	e.TextTruncate = Enum.TextTruncate.AtEnd
+	e.TextXAlignment = Enum.TextXAlignment.Center
+	e.TextYAlignment = Enum.TextYAlignment.Center
 	e.Parent = f
 	local v = Instance.new("TextButton")
-	v.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	v.Name = "StatValue"
 	v.BackgroundTransparency = 1.0
 	v.BorderSizePixel = 0
-	v.Position = UDim2.new(0, 0, .15, 0)
-	v.Size = UDim2.new(1, 0, .5, 0)
+	v.AnchorPoint = Vector2.new(.5, 0)
+	v.Position = UDim2.new(.5, 0, 0, 11)
+	v.Size = UDim2.new(1, - 16, 0, 46)
+	v.ZIndex = 7
 	zA(v, Enum.Font.GothamBold)
 	v.Text = "-"
 	v.TextColor3 = Color3.fromRGB(255, 255, 255)
-	v.TextScaled = true
+	v.TextStrokeTransparency = 1
+	v.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+	v.TextScaled = false
+	v.TextSize = (D == "Throw Type" or D == "Player") and 16 or (D == "Distance" and 22 or 29)
+	v.TextTruncate = Enum.TextTruncate.AtEnd
+	v.TextWrapped = false
+	v.TextXAlignment = Enum.TextXAlignment.Center
+	v.TextYAlignment = Enum.TextYAlignment.Center
 	v.AutoButtonColor = false
 	v.Parent = f
+	local a = Instance.new("UITextSizeConstraint")
+	a.MinTextSize = 12
+	a.MaxTextSize = (D == "Throw Type" or D == "Player") and 16 or (D == "Distance" and 22 or 29)
+	a.Parent = v
+	if D == "Player" then
+		v.Position = UDim2.new(.5, 0, 0, 48)
+		v.Size = UDim2.new(1, - 14, 0, 17)
+		v.TextSize = 13
+		a.MaxTextSize = 13
+		local H = Instance.new("ImageLabel")
+		H.Name = "TargetAvatar"
+		H.BackgroundColor3 = Color3.fromRGB(22, 18, 31)
+		H.BackgroundTransparency = 0
+		H.BorderSizePixel = 0
+		H.AnchorPoint = Vector2.new(.5, 0)
+		H.Position = UDim2.new(.5, 0, 0, 7)
+		H.Size = UDim2.new(0, 38, 0, 38)
+		H.Image = ""
+		H.ImageTransparency = 0.35
+		H.Visible = false
+		H.ZIndex = 8
+		H.Parent = f
+		local b = Instance.new("UICorner", H)
+		b.CornerRadius = UDim.new(1, 0)
+		local t = Instance.new("UIStroke", H)
+		t.Color = Color3.fromRGB(178, 112, 255)
+		t.Thickness = 1
+		t.Transparency = 0.14
+		t.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		QBHudPFPImage = H
+		QBHudPFPStroke = t
+	end
 	if D == "Throw Type" then
-		local D = Instance.new("UIScale", f)
-		v.MouseButton1Down:Connect(function()
+		local O = Instance.new("UIScale", f)
+		local s = Instance.new("TextButton")
+		s.Name = "ThrowTypeClickArea"
+		s.BackgroundTransparency = 1
+		s.BorderSizePixel = 0
+		s.Size = UDim2.new(1, 0, 1, 0)
+		s.Text = ""
+		s.AutoButtonColor = false
+		s.ZIndex = 10
+		s.Parent = f
+		s.MouseButton1Down:Connect(function()
 			local f = U.Character
 			if not f or not f:FindFirstChild("Football") then
 				return
 			end;
-			(P:Create(D, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-				Scale = .9
+			(P:Create(O, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				Scale = .94
 			})):Play()
 		end)
-		v.MouseButton1Up:Connect(function()
+		s.MouseButton1Up:Connect(function()
 			local f = U.Character
 			if not f or not f:FindFirstChild("Football") then
 				return
 			end;
-			(P:Create(D, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			(P:Create(O, TweenInfo.new(.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 				Scale = 1
 			})):Play()
 			JA = JA + 1
@@ -3810,22 +4020,32 @@ local AA = function(D)
 	end
 	if D == "Player" then
 		local D = Instance.new("TextLabel")
-		D.Size = UDim2.new(1, 0, .25, 0)
-		D.Position = UDim2.new(0, 0, .05, 0)
-		D.BackgroundTransparency = 1
-		D.Text = "LOCKED"
-		D.TextColor3 = Color3.fromRGB(255, 50, 50)
+		D.Name = "LockBadge"
+		D.Size = UDim2.new(0, 46, 0, 13)
+		D.AnchorPoint = Vector2.new(1, 0)
+		D.Position = UDim2.new(1, - 9, 0, 7)
+		D.BackgroundColor3 = Color3.fromRGB(178, 112, 255)
+		D.BackgroundTransparency = 0.06
+		D.BorderSizePixel = 0
+		D.Text = "LOCK"
+		D.TextColor3 = Color3.fromRGB(255, 255, 255)
 		zA(D, Enum.Font.GothamBold)
-		D.TextSize = 12
+		D.TextStrokeTransparency = 1
+		D.TextSize = 8
 		D.Visible = false
-		D.ZIndex = 2
+		D.ZIndex = 11
 		D.Parent = f
+		local O = Instance.new("UICorner", D)
+		O.CornerRadius = UDim.new(1, 0)
 		nA = D
 		local F = Instance.new("TextButton")
+		F.Name = "PlayerClickArea"
 		F.Size = UDim2.new(1, 0, 1, 0)
 		F.BackgroundTransparency = 1
+		F.BorderSizePixel = 0
 		F.Text = ""
-		F.ZIndex = 5
+		F.AutoButtonColor = false
+		F.ZIndex = 10
 		F.Parent = f
 		F.MouseButton1Click:Connect(function()
 			local D = U.Character
@@ -3857,6 +4077,54 @@ AA("Throw Type")
 AA("Player")
 AA("Airtime")
 AA("Power")
+AA("Distance")
+QBHudUpdatePFP = function(D)
+	if not QBHudPFPImage then
+		return
+	end
+	local f = nil
+	if D then
+		pcall(function()
+			f = I:GetPlayerFromCharacter(D)
+		end)
+	end
+	if not f then
+		if QBHudPFPUserId ~= nil then
+			QBHudPFPToken = QBHudPFPToken + 1
+		end
+		QBHudPFPUserId = nil
+		QBHudPFPImage.Image = ""
+		QBHudPFPImage.ImageTransparency = 0.35
+		QBHudPFPImage.Visible = false
+		return
+	end
+	QBHudPFPImage.Visible = true
+	if QBHudPFPUserId == f.UserId then
+		return
+	end
+	QBHudPFPUserId = f.UserId
+	QBHudPFPToken = QBHudPFPToken + 1
+	local F = QBHudPFPToken
+	local O = f.UserId
+	QBHudPFPImage.Image = ""
+	QBHudPFPImage.ImageTransparency = 0.35
+	task.spawn(function()
+		local D, f = pcall(function()
+			return I:GetUserThumbnailAsync(O, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+		end)
+		if F ~= QBHudPFPToken then
+			return
+		end
+		if D and f then
+			QBHudPFPImage.Image = f
+			QBHudPFPImage.ImageTransparency = 0
+		else
+			QBHudPFPImage.Image = ""
+			QBHudPFPImage.ImageTransparency = 0.35
+		end
+	end)
+end
+
 local UA = function()
 	local D = {}
 	local f = workspace:FindFirstChild("npcwr")
@@ -4584,13 +4852,13 @@ u.InputBegan:Connect(function(D, f)
 			end
 		end
 	end
-	if D.KeyCode == lockKeybind.Value then
+	if D.KeyCode == Enum.KeyCode.Q then
 		if iA or o then
 			o = not o
 			if o then
 				Y = iA
 				if SA then
-					SA.TextColor3 = Color3.fromRGB(255, 50, 50)
+					SA.TextColor3 = Color3.fromRGB(203, 166, 247)
 				end
 				if nA then
 					nA.Visible = true
@@ -4752,12 +5020,12 @@ local rO = function(D)
 		hA.Adornee = iA
 		hA.Parent = iA
 		hA.FillTransparency = 1
-		hA.OutlineColor = o and Color3.new(0, 0, 0) or Color3.fromRGB(255, 255, 255)
+		hA.OutlineColor = o and Color3.fromRGB(126, 72, 204) or Color3.fromRGB(178, 112, 255)
 		hA.OutlineTransparency = 0
 		if qbVision and qbVision.Value then
 			hA.FillTransparency = 0.75
-			hA.FillColor = Color3.fromRGB(0, 255, 100)
-			hA.OutlineColor = Color3.fromRGB(0, 255, 100)
+			hA.FillColor = Color3.fromRGB(178, 112, 255)
+			hA.OutlineColor = Color3.fromRGB(178, 112, 255)
 		end
 	elseif hA then
 		hA:Destroy()
@@ -4782,23 +5050,28 @@ workspace.ChildAdded:Connect(function(D)
 			O.Attachment0 = D
 			O.Attachment1 = f
 			O.Segments = 7500
-			O.Width0 = 1
-			O.Width1 = 1
+			O.Width0 = 1.25
+			O.Width1 = 1.25
 			O.FaceCamera = true
-			O.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+			O.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(175, 95, 230)),
+				ColorSequenceKeypoint.new(0.5, Color3.fromRGB(135, 70, 210)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(175, 95, 230))
+			})
 			O.Transparency = NumberSequence.new({
-				NumberSequenceKeypoint.new(0, 1);
-				NumberSequenceKeypoint.new(.01, 0);
-				NumberSequenceKeypoint.new(1, 0)
+				NumberSequenceKeypoint.new(0, 0.2);
+				NumberSequenceKeypoint.new(.01, 0.02);
+				NumberSequenceKeypoint.new(1, 0.02)
 			})
 			O.Parent = workspace.Terrain
 			local s = Instance.new("Part", workspace.Terrain)
 			s.Anchored = true
 			s.CanCollide = false
 			s.CastShadow = false
-			s.Size = Vector3.new(3, 3, 3)
+			s.Size = Vector3.new(3.1, 3.1, 3.1)
 			s.Shape = Enum.PartType.Ball
-			s.Color = Color3.fromRGB(0, 0, 0)
+			s.Material = Enum.Material.Neon
+			s.Color = Color3.fromRGB(178, 112, 255)
 			local r = XA or Vector3.new(0, 1, 0)
 			local e = math.max(tonumber(pA) or .1, .1)
 			local v, a, H, b = FO(Vector3.new(0, - 28, 0), r, F.Position + (r.Unit * 5), e)
@@ -4833,6 +5106,9 @@ R.RenderStepped:Connect(function()
 			cA.WorldPosition = Vector3.new(0, - 9999, 0)
 		end
 		iA = nil
+		if QBHudUpdatePFP then
+			QBHudUpdatePFP(nil)
+		end
 		return
 	end
 	if not kA or not kA.Parent then
@@ -5072,6 +5348,18 @@ R.RenderStepped:Connect(function()
 		if E.Power then
 			E.Power.Text = string.format("%.0f", D)
 		end
+		if E.Distance then
+			local O = nil
+			if throwAimbot.Value and WA then
+				O = tonumber((Vector3.new(WA.X - F.Position.X, 0, WA.Z - F.Position.Z)).Magnitude) or nil
+			elseif iA then
+				local D = iA:FindFirstChild("HumanoidRootPart")
+				if D then
+					O = tonumber((Vector3.new(D.Position.X - F.Position.X, 0, D.Position.Z - F.Position.Z)).Magnitude) or nil
+				end
+			end
+			E.Distance.Text = O and (string.format("%.0f", O) .. "m") or "--"
+		end
 		if E.Airtime then
 			E.Airtime.Text = string.format("%.1fs", tonumber(pA) or 0)
 		end
@@ -5081,8 +5369,14 @@ R.RenderStepped:Connect(function()
 		if E.Player then
 			if throwAimbot.Value then
 				E.Player.Text = "MOUSE"
+				if QBHudUpdatePFP then
+					QBHudUpdatePFP(nil)
+				end
 			else
 				E.Player.Text = tostring((iA and iA.Name) or "NONE")
+				if QBHudUpdatePFP then
+					QBHudUpdatePFP(iA)
+				end
 			end
 		end
 	else
@@ -5090,6 +5384,9 @@ R.RenderStepped:Connect(function()
 		rO(false)
 		iA = nil
 		dA = nil
+		if QBHudUpdatePFP then
+			QBHudUpdatePFP(nil)
+		end
 	end
 	if TA and v then
 		TA.Enabled = true
@@ -5187,12 +5484,16 @@ magsType = eO:CreateDropdown({
 })
 local vO = (game:GetService("Players")).LocalPlayer
 local aO = Instance.new("Part")
-aO.Color = Color3.fromRGB(255, 255, 255)
+aO.Name = "FF3_MagnetsRadiusVisual"
+aO.Color = Color3.fromRGB(178, 112, 255)
 aO.Shape = Enum.PartType.Ball
-aO.Material = Enum.Material.ForceField
+aO.Material = Enum.Material.Neon
+aO.Transparency = 0.84
 aO.CastShadow = false
 aO.Anchored = true
 aO.CanCollide = false
+aO.CanTouch = false
+aO.CanQuery = false
 local HO = function()
 	local D = vO.Character
 	if not D then
@@ -5943,9 +6244,10 @@ quickTPPower = KO:CreateSlider({
 })
 HideKeybind = KO:CreateKeybind({
 	Name = "Quick TP Keybind";
-	Default = Enum.KeyCode.Q;
+	Default = Enum.KeyCode.Z;
 	Tip = "Key used to activate Quick TP."
 })
+HideKeybind.Set(nil, Enum.KeyCode.Z)
 u.InputBegan:Connect(function(D, f)
 	if f then
 		return
@@ -6197,7 +6499,7 @@ workspace.ChildAdded:Connect(function(D)
 		O.CanCollide = false
 		O.CastShadow = false
 		O.Material = Enum.Material.Neon
-		O.Color = Color3.fromRGB(255, 255, 255)
+		O.Color = Color3.fromRGB(175, 95, 230)
 		local e = ((F - f)).Magnitude
 		O.Size = Vector3.new(.4, .4, e)
 		O.CFrame = CFrame.lookAt(((f + F)) / 2, F)
